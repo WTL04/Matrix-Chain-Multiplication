@@ -86,32 +86,39 @@ int * getPArray(vector<vector<int>> matrix)
     return result;
 }
 
- 
-// Matrix Ai has dimension p[i-1] x p[i]
-// for i = 1 . . . n
-int MatrixChainOrder(int p[], int i, int j)
-{
-    if (i == j)
-        return 0;
-    int k;
-    int mini = 2147483647; //max int limit
-    int count;
- 
-    // Place parenthesis at different places
-    // between first and last matrix, 
-    // recursively calculate count of multiplications 
-    // for each parenthesis placement 
-    // and return the minimum count
-    for (k = i; k < j; k++) 
-    {
-        count = MatrixChainOrder(p, i, k) + MatrixChainOrder(p, k + 1, j) + p[i - 1] * p[k] * p[j];
- 
-        mini = min(count, mini);
-    }
- 
-    // Return minimum count
-    return mini;
-}
+// int MatrixChainOrder(int p[], int size)
+// {
+//     int table[size][size];
+
+//     // Set k[i][i] = 0 since no multiplications are needed for a single matrix
+//     for (int i = 0; i < size; i++) {
+//         table[i][i] = 0;
+//     }
+
+//     // Iterate over the chain length
+//     for (int len = 2; len <= size; len++) 
+//     {
+//         // Iterate over the start index of the chain
+
+//         for (int i = 1; i <= size - len + 1; i++) 
+//         {
+//             int j = i + len - 1; // Calculate the end index of the chain
+//             table[i][j] = 2147483647 ;
+
+//             // Iterate over the partition point
+//             for (int k = i; k < j; k++) 
+//             {
+//                 // Calculate the cost of multiplying matrices from i to j
+//                 int cost = table[i][k] + table[k+1][j] + p[i-1] * p[k] * p[j];
+//                 // Update the minimum cost
+//                 table[i][j] = min(table[i][j], cost);
+//             }
+//         }
+//     }
+//     // Return the minimum number of multiplications needed for the entire chain
+//     return table[0][size-1];
+    
+// }
  
 int main()
 {
@@ -126,7 +133,7 @@ int main()
     int size = matrix.size();
  
     // Function call
-    cout << "Minimum number of multiplications is " << MatrixChainOrder(P, 1, size) << endl;
+    //cout << "Minimum number of multiplications is " << MatrixChainOrder(P, size) << endl;
 
     delete[] P; // for no memory leaks cause using pointers
     return 0;
